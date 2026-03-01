@@ -11,7 +11,6 @@ export const App = () => {
     const [currentCard, setCurrentCard] = useState()
     const [currentItem, setCurrentItem] = useState()
     const [cardCurrentCard, setCardCurrentCard] = useState()
-    const [isClicked, setIsClicked] = useState(false)
 
     const addColumn = (id) =>{
       if(title.trim()){
