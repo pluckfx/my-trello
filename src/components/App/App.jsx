@@ -149,7 +149,6 @@ export const App = () => {
           }
           return card
         }))
-        setIsClicked(false)
       }
     }
 
@@ -182,7 +181,6 @@ export const App = () => {
           })
           return {...card, data: timeArr}
         }))
-        setIsClicked(false)
       }
     }
 
