@@ -22,4 +22,4 @@
 - SCSS  
 - HTML5 Drag & Drop API  
 
-Ссылка на демо: [Netlify](https://silly-raindrop-2f5dbd.netlify.app/)
+[Ссылка на демо]([https://silly-raindrop-2f5dbd.netlify.app/](https://mytrellopluckfx.netlify.app/))
