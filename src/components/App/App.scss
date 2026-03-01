@@ -1,218 +1,558 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2b253f95-9dd4-4143-a8d8-cd7c00abdf40/dec6cl5-39908449-5bb9-4617-afb3-b57dd28659c1.png/v1/fill/w_1280,h_720,q_80,strp/dark_mountain_scenery_by_aomxart_dec6cl5-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvMmIyNTNmOTUtOWRkNC00MTQzLWE4ZDgtY2Q3YzAwYWJkZjQwXC9kZWM2Y2w1LTM5OTA4NDQ5LTViYjktNDYxNy1hZmIzLWI1N2RkMjg2NTljMS5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.XpspwBSpJGMMk4Rs2de9H7LVbiJ3QWcgWOk-hICVOnE');
+body {
+    background: url('../../images/bcg.png');
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+    color: #172b4d;
 }
 
-::-webkit-scrollbar{
-    display: none;
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-.trello{
-    &__container{
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.trello {
+    min-height: 100vh;
+    padding: 20px;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 30px;
+        
+        &-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+        
+        &-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 10px;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    &__block {
+        width: 100%;
+        max-width: 350px;
+        flex: 0 1 auto;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s, box-shadow 0.2s;
+        
+        &:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        &-add {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.25);
+            }
+        }
+    }
+
+    &__title {
+        margin: -5px -5px 10px -5px;
+        padding: 10px 50px 10px 15px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        position: relative;
+        background: rgba(0, 0, 0, 0.03);
+        border-radius: 8px;
+        cursor: grab;
+        
+        &:active {
+            cursor: grabbing;
+        }
+        
+        &-text {
+            word-break: break-word;
+            white-space: normal;
+            display: block;
+        }
+        
+        &-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            
+            &:focus {
+                box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            }
+        }
+    }
+
+    &__card_btns {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        gap: 8px;
+        opacity: 0;
+        transition: opacity 0.2s;
+        
+        .trello__title:hover & {
+            opacity: 1;
+        }
+    }
+
+    &__card_change, &__card_del {
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 6px;
+        background: white;
+        color: #667eea;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    &__card_change {
+        color: #667eea;
+        
+        &:hover {
+            background: #667eea;
+            color: white;
+        }
+    }
+
+    &__card_del {
+        color: #e74c3c;
+        
+        &:hover {
+            background: #e74c3c;
+            color: white;
+        }
+    }
+
+    &__item {
+        background: white;
+        border-radius: 8px;
+        padding: 12px 40px 12px 12px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: relative;
+        cursor: grab;
+        transition: all 0.2s;
+        word-break: break-word;
+        white-space: normal;
+        
+        &:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            
+            .trello__item_btns {
+                opacity: 1;
+            }
+        }
+        
+        &:active {
+            cursor: grabbing;
+        }
+        
+        &-add {
+            background: transparent;
+            box-shadow: none;
+            cursor: default;
+            padding: 0;
+            
+            &:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+        
+        &-text {
+            display: block;
+        }
+        
+        &-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            
+            &:focus {
+                box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            }
+        }
+        
+        &_btns {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 6px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        &_change, &_del {
+            width: 26px;
+            height: 26px;
+            border: none;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+            
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+        
+        &_change {
+            color: #667eea;
+            
+            &:hover {
+                background: #667eea;
+                color: white;
+            }
+        }
+        
+        &_del {
+            color: #e74c3c;
+            
+            &:hover {
+                background: #e74c3c;
+                color: white;
+            }
+        }
+        
+        &_label {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+        
+        &_inp {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+            
+            &:focus {
+                border-color: #667eea;
+            }
+        }
+        
+        &_btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            &:hover {
+                background: #5a67d8;
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    &__add {
         width: 100%;
         padding: 10px;
-        height: 100vh;
-        font-size: 18px;
-        overflow-x: scroll;
-        white-space: nowrap;
-    }
-
-    &__block{
-        width: 400px;
-        background-color: #ebecf0;
-        border-radius: 10px;
-        padding: 15px;
-        font-size: 16px;
-        display: inline-block;
-        margin: 0 10px;
-        vertical-align: top; 
-    }
-
-    &__title{
-        margin: 0px 0;
-        font-weight: 700;
+        border: 2px dashed #cbd5e0;
+        border-radius: 8px;
+        background: transparent;
+        color: #718096;
+        font-size: 0.95rem;
         cursor: pointer;
-        position: relative;
         display: flex;
-        // align-items: center;
-        // justify-content: space-between;
-        overflow: hidden;
-        padding: 10px 60px 10px 10px;
-
-        span{
-            overflow: hidden;
-            word-wrap: break-word; 
-            white-space: pre-wrap;
-            display: inline-block;
-        }
-
-        input{
-            width: 100%;
-            outline: none;
-            font-size: 16px;
-        }
-    }
-
-    &__add{
-        padding: 5px;
-        display: flex;
+        align-items: center;
         justify-content: center;
-        transition: .3s;
-
-        &:hover{
-            background-color: rgb(226, 226, 226);
+        gap: 8px;
+        transition: all 0.2s;
+        
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        &:hover {
+            border-color: #667eea;
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
         }
     }
 
-    &__item{
+    &__card_label {
+        display: flex;
+        gap: 10px;
         width: 100%;
-        height: auto;
-        background-color: white;
-        margin: 15px 0 0;
+    }
+
+    &__card_inp {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        font-size: 0.95rem;
+        outline: none;
+        transition: all 0.2s;
+        
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        &:focus {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.25);
+        }
+    }
+
+    &__card_btn {
+        width: 44px;
+        height: 44px;
+        border: none;
+        border-radius: 10px;
+        background: white;
+        color: #667eea;
         cursor: pointer;
-        padding: 5px 45px 5px 5px;
-        position: relative;
-        overflow: hidden;
-        overflow-wrap: break-word; 
-        white-space: pre-wrap;
-
-        input{
-            width: 100%;
-            outline: none;
-            font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        
+        svg {
+            width: 22px;
+            height: 22px;
         }
-
-        &:last-child{
-            padding: 0;
-        }
-
-        &_label{
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        &_btns{
-            width: 10%;
-            display: flex;
-            justify-content: space-between;
-            position: absolute;
-            align-items: center;
-            right: 5px;
-            top: 5px;
-        }
-
-        &_change{
-            width: 15px;
-            height: 15px;
-
-            img{
-                width: 100%;
-                height: 100%;
-            }
-        }
-
-        &_del{
-            display: flex;
-            // display: none;
-            justify-content: center;
-            align-items: center;
-            color: red;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            border: 1px solid red;
-        }
-
-        &_inp{
-            width: 100%;
-            font-size: 16px;
-            outline: none;
-            padding: 2px 30px 2px 5px;
-        }
-
-        &_btn{
-            width: 23px;
-            height: 23px;
-            background: none;
-            border-radius: 50%;
-            border-color: darkgray;
-            color: darkgray;
-            font-size: 19px;
-            cursor: pointer;
-            position: absolute;
-            right: 0;
-            margin: 0 5px 0 10px;
+        
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
     }
+}
 
-    &__card{
-
-        &_label{
-            position: relative;
-            display: flex;
-            align-items: center;
+// Десктоп версия (1024px и выше)
+@media (min-width: 1024px) {
+    .trello {
+        &__container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-
-        &_btns{
-            width: 15%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: absolute;
-            right: 0;
-            top: 8px;
-        }
-
-        &_change{
-            width: 20px;
-            height: 20px;
-
-            img{
-                width: 100%;
-                height: 100%;
-            }
-        }
-
-        &_del{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: red;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 1px solid red;
-        }
-
-        &_inp{
+        
+        &__block {
+            max-width: 100%;
             width: 100%;
-            font-size: 18px;
-            outline: none;
-            padding: 3px 30px 0 5px;
-        }
-
-        &_btn{
-            width: 25px;
-            height: 25px;
-            background: none;
-            border-radius: 50%;
-            border-color: darkgray;
-            color: darkgray;
-            font-size: 20px;
-            cursor: pointer;
-            position: absolute;
-            right: 0;
-            margin: 0 5px 0 10px;
+            margin: 0;
         }
     }
+}
+
+// Планшеты (768px - 1023px)
+@media (min-width: 768px) and (max-width: 1023px) {
+    .trello {
+        &__container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 10px;
+        }
+        
+        &__block {
+            max-width: 100%;
+        }
+    }
+}
+
+// Мобильные устройства (до 767px)
+@media (max-width: 767px) {
+    .trello {
+        padding: 10px;
+        
+        &__header {
+            margin-bottom: 20px;
+            
+            &-title {
+                font-size: 2rem;
+            }
+            
+            &-subtitle {
+                font-size: 1rem;
+            }
+        }
+        
+        &__container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 5px;
+        }
+        
+        &__block {
+            max-width: 100%;
+            width: 100%;
+            padding: 12px;
+        }
+        
+        &__title {
+            font-size: 1rem;
+            padding: 8px 45px 8px 12px;
+        }
+        
+        &__card_btns {
+            opacity: 1;
+        }
+        
+        &__item {
+            padding: 10px 35px 10px 10px;
+            font-size: 0.9rem;
+            
+            &_btns {
+                opacity: 1;
+            }
+            
+            &_inp {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+            
+            &_btn {
+                width: 36px;
+                height: 36px;
+                
+                svg {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+        
+        &__add {
+            padding: 8px;
+            font-size: 0.9rem;
+            
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+        
+        &__card_inp {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+        
+        &__card_btn {
+            width: 40px;
+            height: 40px;
+            
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+        
+        &__card_change, &__card_del {
+            width: 32px;
+            height: 32px;
+        }
+    }
+}
+
+// Анимации
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.trello__block {
+    animation: fadeIn 0.3s ease-out;
 }
