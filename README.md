@@ -4,7 +4,7 @@
 
 Превью проекта:  
 
-![Десктоп](src/images/Screen.JPG)  
+![Десктоп](./src/images/Screen.JPG)  
 
 ## ⚡ Основные возможности
 
